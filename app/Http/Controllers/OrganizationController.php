@@ -31,24 +31,17 @@ class OrganizationController extends Controller
      *             type="array",
      *             @OA\Items(
      *                 type="object",
-     *                 example={
-     *                     {
-     *                         "id": 1,
-     *                         "name": "МКК МорФинансСантех",
-     *                         "phone_numbers": "[\"1-848-254-3223\", \"602.408.4938\"]",
-     *                         "building_id": 15,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     },
-     *                     {
-     *                         "id": 2,
-     *                         "name": "ОАО Cиб",
-     *                         "phone_numbers": "[\"+1.757.905.0088\", \"(631) 507-1240\"]",
-     *                         "building_id": 8,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     }
-     *                 }
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="МКК МорФинансСантех"),
+     *                 @OA\Property(
+     *                     property="phone_numbers",
+     *                     type="array",
+     *                     @OA\Items(type="string"),
+     *                     example={"1-848-254-3223","602.408.4938"}
+     *                 ),
+     *                 @OA\Property(property="building_id", type="integer", example=15),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z")
      *             )
      *         )
      *     )
@@ -81,57 +74,50 @@ class OrganizationController extends Controller
      *         description="Успешный запрос",
      *         @OA\JsonContent(
      *             type="object",
-     *             example={
-     *                 "id": 5,
-     *                 "name": "ООО Компания CибРечОбл",
-     *                 "phone_numbers": "[\"1-239-920-9117\", \"541.635.8314\"]",
-     *                 "building_id": 33,
-     *                 "created_at": "2025-01-09T19:23:50.000000Z",
-     *                 "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                 "building": {
-     *                     "id": 33,
-     *                     "address": "573466, Оренбургская область, город Дмитров, въезд Чехова, 91",
-     *                     "latitude": "-4.9280140",
-     *                     "longitude": "4.4754080",
-     *                     "created_at": "2025-01-09T19:23:50.000000Z",
-     *                     "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                 },
-     *                 "activities": [
-     *                     {
-     *                         "id": 26,
-     *                         "name": "Мебель",
-     *                         "parent_id": 3,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                         "pivot": {
-     *                             "organization_id": 5,
-     *                             "activity_id": 26
-     *                         }
-     *                     },
-     *                     {
-     *                         "id": 38,
-     *                         "name": "Туризм",
-     *                         "parent_id": 34,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                         "pivot": {
-     *                             "organization_id": 5,
-     *                             "activity_id": 38
-     *                         }
-     *                     },
-     *                     {
-     *                         "id": 33,
-     *                         "name": "Домашний текстиль",
-     *                         "parent_id": 4,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                         "pivot": {
-     *                             "organization_id": 5,
-     *                             "activity_id": 33
-     *                         }
-     *                     }
-     *                 ]
-     *             }
+     *             @OA\Property(property="id", type="integer", example=5),
+     *             @OA\Property(property="name", type="string", example="ООО Компания CибРечОбл"),
+     *             @OA\Property(
+     *                 property="phone_numbers",
+     *                 type="array",
+     *                 description="Массив телефонных номеров",
+     *                 @OA\Items(type="string"),
+     *                 example={"1-239-920-9117", "541.635.8314"}
+     *             ),
+     *             @OA\Property(property="building_id", type="integer", example=33),
+     *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *
+     *             @OA\Property(
+     *                 property="building",
+     *                 type="object",
+     *                 description="Данные о здании",
+     *                 @OA\Property(property="id", type="integer", example=33),
+     *                 @OA\Property(property="address", type="string", example="573466, Оренбургская область, город Дмитров, въезд Чехова, 91"),
+     *                 @OA\Property(property="latitude", type="string", example="-4.9280140"),
+     *                 @OA\Property(property="longitude", type="string", example="4.4754080"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z")
+     *             ),
+     *
+     *             @OA\Property(
+     *                 property="activities",
+     *                 type="array",
+     *                 description="Список видов деятельности, связанных с организацией",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="id", type="integer", example=26),
+     *                     @OA\Property(property="name", type="string", example="Мебель"),
+     *                     @OA\Property(property="parent_id", type="integer", example=3),
+     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                     @OA\Property(
+     *                         property="pivot",
+     *                         type="object",
+     *                         @OA\Property(property="organization_id", type="integer", example=5),
+     *                         @OA\Property(property="activity_id", type="integer", example=26)
+     *                     )
+     *                 )
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -174,32 +160,17 @@ class OrganizationController extends Controller
      *             type="array",
      *             @OA\Items(
      *                 type="object",
-     *                 example={
-     *                     {
-     *                         "id": 14,
-     *                         "name": "ООО Компания ЛифтОбл",
-     *                         "phone_numbers": "[\"623.336.2503\", \"1-781-212-8873\"]",
-     *                         "building_id": 3,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     },
-     *                     {
-     *                         "id": 25,
-     *                         "name": "ОАО ТрансОрионКрепОпт",
-     *                         "phone_numbers": "[\"248-615-1640\", \"+1.352.783.2345\"]",
-     *                         "building_id": 3,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     },
-     *                     {
-     *                         "id": 29,
-     *                         "name": "МФО ТехХмельТех",
-     *                         "phone_numbers": "[\"1-941-503-0263\", \"346.461.0052\"]",
-     *                         "building_id": 3,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     }
-     *                 }
+     *                 @OA\Property(property="id", type="integer", example=14),
+     *                 @OA\Property(property="name", type="string", example="ООО Компания ЛифтОбл"),
+     *                 @OA\Property(
+     *                     property="phone_numbers",
+     *                     type="array",
+     *                     @OA\Items(type="string"),
+     *                     example={"623.336.2503","1-781-212-8873"}
+     *                 ),
+     *                 @OA\Property(property="building_id", type="integer", example=3),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z")
      *             )
      *         )
      *     ),
@@ -241,24 +212,17 @@ class OrganizationController extends Controller
      *             type="array",
      *             @OA\Items(
      *                 type="object",
-     *                 example={
-     *                     {
-     *                         "id": 28,
-     *                         "name": "МФО ТяжТеле",
-     *                         "phone_numbers": "[\"631-762-4660\", \"+1-872-456-2948\"]",
-     *                         "building_id": 6,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     },
-     *                     {
-     *                         "id": 48,
-     *                         "name": "ООО Компания ДизайнАсбоцементВод",
-     *                         "phone_numbers": "[\"+19797352329\", \"(940) 780-8399\"]",
-     *                         "building_id": 35,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     }
-     *                 }
+     *                 @OA\Property(property="id", type="integer", example=28),
+     *                 @OA\Property(property="name", type="string", example="МФО ТяжТеле"),
+     *                 @OA\Property(
+     *                     property="phone_numbers",
+     *                     type="array",
+     *                     @OA\Items(type="string"),
+     *                     example={"631-762-4660","+1-872-456-2948"}
+     *                 ),
+     *                 @OA\Property(property="building_id", type="integer", example=6),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z")
      *             )
      *         )
      *     ),
@@ -302,16 +266,17 @@ class OrganizationController extends Controller
      *             type="array",
      *             @OA\Items(
      *                 type="object",
-     *                 example={
-     *                     {
-     *                         "id": 6,
-     *                         "name": "ПАО МеталОблМикро",
-     *                         "phone_numbers": "[\"612.204.1583\", \"248-613-9276\"]",
-     *                         "building_id": 48,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     }
-     *                 }
+     *                 @OA\Property(property="id", type="integer", example=6),
+     *                 @OA\Property(property="name", type="string", example="ПАО МеталОблМикро"),
+     *                 @OA\Property(
+     *                     property="phone_numbers",
+     *                     type="array",
+     *                     @OA\Items(type="string"),
+     *                     example={"612.204.1583", "248-613-9276"}
+     *                 ),
+     *                 @OA\Property(property="building_id", type="integer", example=48),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z")
      *             )
      *         )
      *     ),
@@ -367,32 +332,17 @@ class OrganizationController extends Controller
      *             type="array",
      *             @OA\Items(
      *                 type="object",
-     *                 example={
-     *                     {
-     *                         "id": 14,
-     *                         "name": "ООО Компания ЛифтОбл",
-     *                         "phone_numbers": "[\"623.336.2503\", \"1-781-212-8873\"]",
-     *                         "building_id": 3,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     },
-     *                     {
-     *                         "id": 25,
-     *                         "name": "ОАО ТрансОрионКрепОпт",
-     *                         "phone_numbers": "[\"248-615-1640\", \"+1.352.783.2345\"]",
-     *                         "building_id": 3,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     },
-     *                     {
-     *                         "id": 29,
-     *                         "name": "МФО ТехХмельТех",
-     *                         "phone_numbers": "[\"1-941-503-0263\", \"346.461.0052\"]",
-     *                         "building_id": 3,
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     }
-     *                 }
+     *                 @OA\Property(property="id", type="integer", example=14),
+     *                 @OA\Property(property="name", type="string", example="ООО Компания ЛифтОбл"),
+     *                 @OA\Property(
+     *                     property="phone_numbers",
+     *                     type="array",
+     *                     @OA\Items(type="string"),
+     *                     example={"623.336.2503","1-781-212-8873"}
+     *                 ),
+     *                 @OA\Property(property="building_id", type="integer", example=3),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z")
      *             )
      *         )
      *     ),
@@ -449,57 +399,49 @@ class OrganizationController extends Controller
      *             type="array",
      *             @OA\Items(
      *                 type="object",
-     *                 example={
-     *                     "id": 28,
-     *                     "name": "МФО ТяжТеле",
-     *                     "phone_numbers": "[\"631-762-4660\", \"+1-872-456-2948\"]",
-     *                     "building_id": 6,
-     *                     "created_at": "2025-01-09T19:23:50.000000Z",
-     *                     "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                     "activities": {
-     *                         {
-     *                             "id": 3,
-     *                             "name": "Компьютеры",
-     *                             "parent_id": null,
-     *                             "created_at": "2025-01-09T19:23:50.000000Z",
-     *                             "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                             "pivot": {
-     *                                 "organization_id": 28,
-     *                                 "activity_id": 3
-     *                             }
-     *                         },
-     *                         {
-     *                             "id": 7,
-     *                             "name": "Инструменты",
-     *                             "parent_id": 1,
-     *                             "created_at": "2025-01-09T19:23:50.000000Z",
-     *                             "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                             "pivot": {
-     *                                 "organization_id": 28,
-     *                                 "activity_id": 7
-     *                             }
-     *                         },
-     *                         {
-     *                             "id": 11,
-     *                             "name": "Мобильные устройства",
-     *                             "parent_id": 7,
-     *                             "created_at": "2025-01-09T19:23:50.000000Z",
-     *                             "updated_at": "2025-01-09T19:23:50.000000Z",
-     *                             "pivot": {
-     *                                 "organization_id": 28,
-     *                                 "activity_id": 11
-     *                             }
-     *                         }
-     *                     },
-     *                     "building": {
-     *                         "id": 6,
-     *                         "address": "143831, Смоленская область, город Подольск, пер. Косиора, 23",
-     *                         "latitude": "-35.1403850",
-     *                         "longitude": "-91.7947170",
-     *                         "created_at": "2025-01-09T19:23:50.000000Z",
-     *                         "updated_at": "2025-01-09T19:23:50.000000Z"
-     *                     }
-     *                 }
+     *                 @OA\Property(property="id", type="integer", example=28),
+     *                 @OA\Property(property="name", type="string", example="МФО ТяжТеле"),
+     *                 @OA\Property(
+     *                     property="phone_numbers",
+     *                     type="array",
+     *                     @OA\Items(type="string"),
+     *                     example={"631-762-4660", "+1-872-456-2948"}
+     *                 ),
+     *                 @OA\Property(property="building_id", type="integer", example=6),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *
+     *                 @OA\Property(
+     *                     property="activities",
+     *                     type="array",
+     *                     description="Массив связанных видов деятельности",
+     *                     @OA\Items(
+     *                         type="object",
+     *                         @OA\Property(property="id", type="integer", example=3),
+     *                         @OA\Property(property="name", type="string", example="Компьютеры"),
+     *                         @OA\Property(property="parent_id", type="integer", nullable=true, example=null),
+     *                         @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                         @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                         @OA\Property(
+     *                             property="pivot",
+     *                             type="object",
+     *                             @OA\Property(property="organization_id", type="integer", example=28),
+     *                             @OA\Property(property="activity_id", type="integer", example=3)
+     *                         )
+     *                     )
+     *                 ),
+     *
+     *                 @OA\Property(
+     *                     property="building",
+     *                     type="object",
+     *                     description="Данные о здании",
+     *                     @OA\Property(property="id", type="integer", example=6),
+     *                     @OA\Property(property="address", type="string", example="143831, Смоленская область, город Подольск, пер. Косиора, 23"),
+     *                     @OA\Property(property="latitude", type="string", example="-35.1403850"),
+     *                     @OA\Property(property="longitude", type="string", example="-91.7947170"),
+     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z"),
+     *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-09T19:23:50.000000Z")
+     *                 )
      *             )
      *         )
      *     ),

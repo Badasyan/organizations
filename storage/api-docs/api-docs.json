@@ -20,6 +20,40 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "МКК МорФинансСантех"
+                                            },
+                                            "phone_numbers": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "1-848-254-3223",
+                                                    "602.408.4938"
+                                                ]
+                                            },
+                                            "building_id": {
+                                                "type": "integer",
+                                                "example": 15
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            }
+                                        },
                                         "type": "object"
                                     }
                                 }
@@ -53,13 +87,134 @@
                         "content": {
                             "application/json": {
                                 "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 5
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "ООО Компания CибРечОбл"
+                                        },
+                                        "phone_numbers": {
+                                            "description": "Массив телефонных номеров",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "1-239-920-9117",
+                                                "541.635.8314"
+                                            ]
+                                        },
+                                        "building_id": {
+                                            "type": "integer",
+                                            "example": 33
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-01-09T19:23:50.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-01-09T19:23:50.000000Z"
+                                        },
+                                        "building": {
+                                            "description": "Данные о здании",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 33
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "573466, Оренбургская область, город Дмитров, въезд Чехова, 91"
+                                                },
+                                                "latitude": {
+                                                    "type": "string",
+                                                    "example": "-4.9280140"
+                                                },
+                                                "longitude": {
+                                                    "type": "string",
+                                                    "example": "4.4754080"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-01-09T19:23:50.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-01-09T19:23:50.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "activities": {
+                                            "description": "Список видов деятельности, связанных с организацией",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 26
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Мебель"
+                                                    },
+                                                    "parent_id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-01-09T19:23:50.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-01-09T19:23:50.000000Z"
+                                                    },
+                                                    "pivot": {
+                                                        "properties": {
+                                                            "organization_id": {
+                                                                "type": "integer",
+                                                                "example": 5
+                                                            },
+                                                            "activity_id": {
+                                                                "type": "integer",
+                                                                "example": 26
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
                                     "type": "object"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "Организация не найдена"
+                        "description": "Организация не найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "error": "Организация не найдена"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -90,8 +245,55 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 14
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "ООО Компания ЛифтОбл"
+                                            },
+                                            "phone_numbers": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "623.336.2503",
+                                                    "1-781-212-8873"
+                                                ]
+                                            },
+                                            "building_id": {
+                                                "type": "integer",
+                                                "example": 3
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            }
+                                        },
                                         "type": "object"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Здание не найдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "error": "Здание не найдено"
                                 }
                             }
                         }
@@ -125,8 +327,55 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 28
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "МФО ТяжТеле"
+                                            },
+                                            "phone_numbers": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "631-762-4660",
+                                                    "+1-872-456-2948"
+                                                ]
+                                            },
+                                            "building_id": {
+                                                "type": "integer",
+                                                "example": 6
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            }
+                                        },
                                         "type": "object"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Вид деятельности не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "error": "Вид деятельности не найден"
                                 }
                             }
                         }
@@ -160,8 +409,55 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 6
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "ПАО МеталОблМикро"
+                                            },
+                                            "phone_numbers": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "612.204.1583",
+                                                    "248-613-9276"
+                                                ]
+                                            },
+                                            "building_id": {
+                                                "type": "integer",
+                                                "example": 48
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            }
+                                        },
                                         "type": "object"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Организация не найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "error": "Организация не найдена"
                                 }
                             }
                         }
@@ -216,6 +512,40 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 14
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "ООО Компания ЛифтОбл"
+                                            },
+                                            "phone_numbers": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "623.336.2503",
+                                                    "1-781-212-8873"
+                                                ]
+                                            },
+                                            "building_id": {
+                                                "type": "integer",
+                                                "example": 3
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            }
+                                        },
                                         "type": "object"
                                     }
                                 }
@@ -229,7 +559,8 @@
                                 "schema": {
                                     "properties": {
                                         "error": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "Некорректные данные"
                                         },
                                         "details": {
                                             "type": "array",
@@ -272,8 +603,132 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 28
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "МФО ТяжТеле"
+                                            },
+                                            "phone_numbers": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "631-762-4660",
+                                                    "+1-872-456-2948"
+                                                ]
+                                            },
+                                            "building_id": {
+                                                "type": "integer",
+                                                "example": 6
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-01-09T19:23:50.000000Z"
+                                            },
+                                            "activities": {
+                                                "description": "Массив связанных видов деятельности",
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 3
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Компьютеры"
+                                                        },
+                                                        "parent_id": {
+                                                            "type": "integer",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "created_at": {
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2025-01-09T19:23:50.000000Z"
+                                                        },
+                                                        "updated_at": {
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2025-01-09T19:23:50.000000Z"
+                                                        },
+                                                        "pivot": {
+                                                            "properties": {
+                                                                "organization_id": {
+                                                                    "type": "integer",
+                                                                    "example": 28
+                                                                },
+                                                                "activity_id": {
+                                                                    "type": "integer",
+                                                                    "example": 3
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "building": {
+                                                "description": "Данные о здании",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 6
+                                                    },
+                                                    "address": {
+                                                        "type": "string",
+                                                        "example": "143831, Смоленская область, город Подольск, пер. Косиора, 23"
+                                                    },
+                                                    "latitude": {
+                                                        "type": "string",
+                                                        "example": "-35.1403850"
+                                                    },
+                                                    "longitude": {
+                                                        "type": "string",
+                                                        "example": "-91.7947170"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-01-09T19:23:50.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-01-09T19:23:50.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
                                         "type": "object"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Организация с таким видом деятельности не найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "error": "Организация с таким видом деятельности не найдена"
                                 }
                             }
                         }

@@ -4,7 +4,7 @@
 ` composer install `
 
 #### Запустить Docker-контейнеры
-` docker-compose up -d `
+` docker-compose up -d --build `
 
 #### Выполнить миграции и сидеры
 
