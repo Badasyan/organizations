@@ -6,7 +6,7 @@ use App\Repositories\OrganizationRepository;
 
 class SearchActivitiesNameAction
 {
-    protected $repository;
+    protected OrganizationRepository $repository;
 
     public function __construct(OrganizationRepository $repository)
     {
